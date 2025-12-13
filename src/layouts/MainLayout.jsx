@@ -6,7 +6,7 @@ import AdminSidebar from '../components/AdminSidebar'
 export default function MainLayout() {
     const role = localStorage.getItem('role')
     
-    if (role === 'admin') {
+    if (role === 'admin' || role === 'super-admin') {
         return (
             <div className="flex">
                 <AdminSidebar />

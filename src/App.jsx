@@ -14,12 +14,13 @@ import NotFound from './pages/NotFound';
 import { ToastContainer, toast } from 'react-toastify';
 import ProtectedRoute from './components/ProtectedRoute';
 import PublicRoute from './components/PublicRoute';
+import RoleBasedRedirect from './components/RoleBasedRedirect';
 function App() {
   const notify = () => toast("Wow so easy!");
   const routes = createBrowserRouter([
     {
       path: '/', element: <ProtectedRoute><MainLayout /></ProtectedRoute>, children: [
-        { index: true, element: <HomePage /> },
+        { index: true, element: <RoleBasedRedirect /> },
         { path: 'lessons', element: <Lessons /> },
         { path: 'lessons/:id', element: <Lessons /> },
         { path: 'exams', element: <Exams /> },
