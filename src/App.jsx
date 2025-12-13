@@ -11,7 +11,9 @@ import LessonsDashboard from './pages/admin/LessonsDashboard';
 import QuestionsDashboard from './pages/admin/QuestionsDashboard';
 import ExamsDashboard from './pages/admin/ExamsDashboard';
 import NotFound from './pages/NotFound';
+  import { ToastContainer, toast } from 'react-toastify';
 function App() {
+  const notify = () => toast("Wow so easy!");
   const routes = createBrowserRouter([
     {
       path: '/', element: <MainLayout />, children: [
@@ -31,9 +33,10 @@ function App() {
   ])
   return (
     <>
-      <RouterProvider router={routes}>
-        <h1>Hello App!</h1>
-      </RouterProvider>
+      <h1>Hello App!</h1>
+      <button onClick={notify}>Notify!</button>
+      <RouterProvider router={routes} />
+      <ToastContainer />
     </>
   )
 }
