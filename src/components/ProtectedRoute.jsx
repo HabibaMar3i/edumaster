@@ -9,7 +9,8 @@ export default function ProtectedRoute({ children, allowedRoles = [] }) {
     }
 
     if (allowedRoles.length > 0 && !allowedRoles.includes(role)) {
-        return <Navigate to="/" replace />
+        const redirectPath = (role === 'admin' || role === 'super-admin') ? '/admin-home' : '/'
+        return <Navigate to={redirectPath} replace />
     }
 
     return children
