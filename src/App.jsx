@@ -12,29 +12,29 @@ import QuestionsDashboard from './pages/admin/QuestionsDashboard';
 import ExamsDashboard from './pages/admin/ExamsDashboard';
 import NotFound from './pages/NotFound';
 import { ToastContainer, toast } from 'react-toastify';
+import ProtectedRoute from './components/ProtectedRoute';
+import PublicRoute from './components/PublicRoute';
 function App() {
   const notify = () => toast("Wow so easy!");
   const routes = createBrowserRouter([
     {
-      path: '/', element: <MainLayout />, children: [
+      path: '/', element: <ProtectedRoute><MainLayout /></ProtectedRoute>, children: [
         { index: true, element: <HomePage /> },
         { path: 'lessons', element: <Lessons /> },
         { path: 'lessons/:id', element: <Lessons /> },
         { path: 'exams', element: <Exams /> },
-        { path: 'login', element: <Login /> },
-        { path: 'register', element: <Register /> },
-        { path: 'admin-home', element: <AdminHomePage /> },
-        { path: 'admin-lessons', element: <LessonsDashboard /> },
-        { path: 'admin-questions', element: <QuestionsDashboard /> },
-        { path: 'admin-exams', element: <ExamsDashboard /> },
+        { path: 'admin-home', element: <ProtectedRoute allowedRoles={['admin']}><AdminHomePage /></ProtectedRoute> },
+        { path: 'admin-lessons', element: <ProtectedRoute allowedRoles={['admin']}><LessonsDashboard /></ProtectedRoute> },
+        { path: 'admin-questions', element: <ProtectedRoute allowedRoles={['admin']}><QuestionsDashboard /></ProtectedRoute> },
+        { path: 'admin-exams', element: <ProtectedRoute allowedRoles={['admin']}><ExamsDashboard /></ProtectedRoute> },
       ]
     },
+    { path: '/login', element: <PublicRoute><Login /></PublicRoute> },
+    { path: '/register', element: <PublicRoute><Register /></PublicRoute> },
     { path: '*', element: <NotFound/> }
   ])
   return (
     <>
-      <h1>Hello App!</h1>
-      <button onClick={notify}>Notify!</button>
       <RouterProvider router={routes} />
       <ToastContainer />
     </>
