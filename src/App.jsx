@@ -11,7 +11,7 @@ import LessonsDashboard from './pages/admin/LessonsDashboard';
 import QuestionsDashboard from './pages/admin/QuestionsDashboard';
 import ExamsDashboard from './pages/admin/ExamsDashboard';
 import NotFound from './pages/NotFound';
-  import { ToastContainer, toast } from 'react-toastify';
+import { ToastContainer, toast } from 'react-toastify';
 function App() {
   const notify = () => toast("Wow so easy!");
   const routes = createBrowserRouter([
