@@ -28,7 +28,17 @@ const authSlice = createSlice({
         role: localStorage.getItem('role') || null,
         isAuthenticated: !!localStorage.getItem('token'),
     },
-    reducers: {},
+    reducers: {
+        logout: (state) => {
+            state.token = null;
+            state.role = null;
+            state.isAuthenticated = false;
+            state.message = null;
+            state.success = false;
+            localStorage.removeItem('token');
+            localStorage.removeItem('role');
+        }
+    },
     extraReducers: (builder) => {
         builder
             .addCase(register.pending, (state) => {
@@ -69,4 +79,5 @@ const authSlice = createSlice({
     },
 });
 
+export const { logout } = authSlice.actions;
 export default authSlice.reducer;
