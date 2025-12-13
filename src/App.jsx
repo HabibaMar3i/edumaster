@@ -10,6 +10,7 @@ import AdminHomePage from './pages/admin/AdminHomePage';
 import LessonsDashboard from './pages/admin/LessonsDashboard';
 import QuestionsDashboard from './pages/admin/QuestionsDashboard';
 import ExamsDashboard from './pages/admin/ExamsDashboard';
+import NotFound from './pages/NotFound';
 function App() {
   const routes = createBrowserRouter([
     {
@@ -23,9 +24,10 @@ function App() {
         { path: 'admin-home', element: <AdminHomePage /> },
         { path: 'admin-lessons', element: <LessonsDashboard /> },
         { path: 'admin-questions', element: <QuestionsDashboard /> },
-        { path: 'admin-exams', element: <ExamsDashboard /> }
+        { path: 'admin-exams', element: <ExamsDashboard /> },
       ]
     },
+    { path: '*', element: <NotFound/> }
   ])
   return (
     <>
