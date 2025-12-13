@@ -1,6 +1,5 @@
 import { createBrowserRouter, RouterProvider } from 'react-router-dom'
 import './App.css'
-import HomePage from './pages/HomePage'
 import MainLayout from './layouts/MainLayout';
 import Lessons from './pages/Lessons';
 import Exams from './pages/Exams';
@@ -11,12 +10,11 @@ import LessonsDashboard from './pages/admin/LessonsDashboard';
 import QuestionsDashboard from './pages/admin/QuestionsDashboard';
 import ExamsDashboard from './pages/admin/ExamsDashboard';
 import NotFound from './pages/NotFound';
-import { ToastContainer, toast } from 'react-toastify';
+import { ToastContainer } from 'react-toastify';
 import ProtectedRoute from './components/ProtectedRoute';
 import PublicRoute from './components/PublicRoute';
 import RoleBasedRedirect from './components/RoleBasedRedirect';
 function App() {
-  const notify = () => toast("Wow so easy!");
   const routes = createBrowserRouter([
     {
       path: '/', element: <ProtectedRoute><MainLayout /></ProtectedRoute>, children: [
