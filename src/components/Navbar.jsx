@@ -1,13 +1,15 @@
-import { Navbar, NavbarBrand, NavbarContent, NavbarItem, Button } from "@heroui/react";
+import { Navbar, NavbarBrand, NavbarContent, NavbarItem, NavbarMenuToggle, NavbarMenu, NavbarMenuItem, Button } from "@heroui/react";
 import { Link } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { logout } from '../features/auth/authSlice';
 import { useNavigate } from 'react-router-dom';
+import { useState } from 'react';
 
 export default function NavbarComponent() {
     const { isAuthenticated } = useSelector(state => state.auth);
     const dispatch = useDispatch();
     const navigate = useNavigate();
+    const [isMenuOpen, setIsMenuOpen] = useState(false);
 
     const handleLogout = () => {
         dispatch(logout());
@@ -15,14 +17,20 @@ export default function NavbarComponent() {
     };
 
     return (
-        <Navbar className="text-[22px] font-normal">
-            <NavbarBrand>
-                <Link to="/" className="font-bold text-inherit">
-                    EduMaster
-                </Link>
-            </NavbarBrand>
-            
-            <NavbarContent justify="end" className="gap-[80px]">
+        <Navbar isMenuOpen={isMenuOpen} onMenuOpenChange={setIsMenuOpen} className="text-[22px] font-normal">
+            <NavbarContent>
+                <NavbarMenuToggle
+                    aria-label={isMenuOpen ? "Close menu" : "Open menu"}
+                    className="sm:hidden"
+                />
+                <NavbarBrand>
+                    <Link to="/" className="font-bold text-inherit">
+                        EduMaster
+                    </Link>
+                </NavbarBrand>
+            </NavbarContent>
+
+            <NavbarContent className="hidden sm:flex gap-[80px]" justify="end">
                 {isAuthenticated && (
                     <>
                         <NavbarItem>
@@ -45,7 +53,7 @@ export default function NavbarComponent() {
                 
                 {!isAuthenticated ? (
                     <>
-                        <NavbarItem className="hidden lg:flex">
+                        <NavbarItem>
                             <Link to="/login">Login</Link>
                         </NavbarItem>
                         <NavbarItem>
@@ -64,6 +72,49 @@ export default function NavbarComponent() {
                     </NavbarItem>
                 )}
             </NavbarContent>
+
+            <NavbarMenu>
+                {isAuthenticated && (
+                    <>
+                        <NavbarMenuItem onClick={() => setIsMenuOpen(false)}>
+                            <Link to="/" className="w-full" size="lg">
+                                Home
+                            </Link>
+                        </NavbarMenuItem>
+                        <NavbarMenuItem onClick={() => setIsMenuOpen(false)}>
+                            <Link to="/lessons" className="w-full" size="lg">
+                                Lessons
+                            </Link>
+                        </NavbarMenuItem>
+                        <NavbarMenuItem onClick={() => setIsMenuOpen(false)}>
+                            <Link to="/exams" className="w-full" size="lg">
+                                Exams
+                            </Link>
+                        </NavbarMenuItem>
+                    </>
+                )}
+                
+                {!isAuthenticated ? (
+                    <>
+                        <NavbarMenuItem onClick={() => setIsMenuOpen(false)}>
+                            <Link to="/login" className="w-full" size="lg">
+                                Login
+                            </Link>
+                        </NavbarMenuItem>
+                        <NavbarMenuItem onClick={() => setIsMenuOpen(false)}>
+                            <Link to="/register" className="w-full" size="lg">
+                                Register
+                            </Link>
+                        </NavbarMenuItem>
+                    </>
+                ) : (
+                    <NavbarMenuItem>
+                        <Button color="danger" onClick={() => { handleLogout(); setIsMenuOpen(false); }} variant="flat" className="w-full">
+                            Log Out
+                        </Button>
+                    </NavbarMenuItem>
+                )}
+            </NavbarMenu>
         </Navbar>
     )
 }
