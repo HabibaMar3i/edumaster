@@ -54,6 +54,8 @@ export default function Register() {
     })
 
     const [errors, setErrors] = useState({})
+    const [showPassword, setShowPassword] = useState(false)
+    const [showConfirmPassword, setShowConfirmPassword] = useState(false)
 
     const handleChange = e => {
         setForm({ ...form, [e.target.name]: e.target.value })
@@ -145,12 +147,21 @@ export default function Register() {
 
                         <Input
                             label="Password"
-                            type="password"
+                            type={showPassword ? "text" : "password"}
                             name="password"
                             value={form.password}
                             onChange={handleChange}
                             isInvalid={!!errors.password}
                             errorMessage={errors.password}
+                            endContent={
+                                <button
+                                    type="button"
+                                    onClick={() => setShowPassword(!showPassword)}
+                                    className="focus:outline-none"
+                                >
+                                    <i className={`fas ${showPassword ? 'fa-eye-slash' : 'fa-eye'} text-gray-400`}></i>
+                                </button>
+                            }
                             classNames={{
                                 inputWrapper: "border-1 border-[#49BBBD] rounded-[40px]",
                                 label: "text-black text-sm ml-4",
@@ -160,12 +171,21 @@ export default function Register() {
 
                         <Input
                             label="Confirm Password"
-                            type="password"
+                            type={showConfirmPassword ? "text" : "password"}
                             name="cpassword"
                             value={form.cpassword}
                             onChange={handleChange}
                             isInvalid={!!errors.cpassword}
                             errorMessage={errors.cpassword}
+                            endContent={
+                                <button
+                                    type="button"
+                                    onClick={() => setShowConfirmPassword(!showConfirmPassword)}
+                                    className="focus:outline-none"
+                                >
+                                    <i className={`fas ${showConfirmPassword ? 'fa-eye-slash' : 'fa-eye'} text-gray-400`}></i>
+                                </button>
+                            }
                             classNames={{
                                 inputWrapper: "border-1 border-[#49BBBD] rounded-[40px]",
                                 label: "text-black text-sm ml-4",

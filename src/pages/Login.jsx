@@ -36,6 +36,7 @@ export default function Login() {
         email: '',
         password: '',
     })
+    const [showPassword, setShowPassword] = useState(false)
 
     const handleChange = e => {
         setForm({ ...form, [e.target.name]: e.target.value })
@@ -103,10 +104,19 @@ export default function Login() {
 
                         <Input
                             label="Password"
-                            type="password"
+                            type={showPassword ? "text" : "password"}
                             name="password"
                             value={form.password}
                             onChange={handleChange}
+                            endContent={
+                                <button
+                                    type="button"
+                                    onClick={() => setShowPassword(!showPassword)}
+                                    className="focus:outline-none"
+                                >
+                                    <i className={`fas ${showPassword ? 'fa-eye-slash' : 'fa-eye'} text-gray-400`}></i>
+                                </button>
+                            }
                             classNames={{
                                 inputWrapper: "border-1 border-[#49BBBD] rounded-[40px]",
                                 label: "text-black text-sm ml-4",
