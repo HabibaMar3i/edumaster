@@ -15,32 +15,34 @@ export default function NavbarComponent() {
     };
 
     return (
-        <Navbar>
+        <Navbar className="text-[22px] font-normal">
             <NavbarBrand>
-                <p className="font-bold text-inherit">EduMaster</p>
+                <Link to="/" className="font-bold text-inherit">
+                    EduMaster
+                </Link>
             </NavbarBrand>
             
-            {isAuthenticated && (
-                <NavbarContent className="hidden sm:flex gap-4" justify="center">
-                    <NavbarItem>
-                        <Link to="/" className="text-foreground">
-                            Home
-                        </Link>
-                    </NavbarItem>
-                    <NavbarItem>
-                        <Link to="/lessons" className="text-foreground">
-                            Lessons
-                        </Link>
-                    </NavbarItem>
-                    <NavbarItem>
-                        <Link to="/exams" className="text-foreground">
-                            Exams
-                        </Link>
-                    </NavbarItem>
-                </NavbarContent>
-            )}
-            
-            <NavbarContent justify="end">
+            <NavbarContent justify="end" className="gap-[80px]">
+                {isAuthenticated && (
+                    <>
+                        <NavbarItem>
+                            <Link to="/" className="text-foreground">
+                                Home
+                            </Link>
+                        </NavbarItem>
+                        <NavbarItem>
+                            <Link to="/lessons" className="text-foreground">
+                                Lessons
+                            </Link>
+                        </NavbarItem>
+                        <NavbarItem>
+                            <Link to="/exams" className="text-foreground">
+                                Exams
+                            </Link>
+                        </NavbarItem>
+                    </>
+                )}
+                
                 {!isAuthenticated ? (
                     <>
                         <NavbarItem className="hidden lg:flex">
