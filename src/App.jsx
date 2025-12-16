@@ -8,7 +8,11 @@ import Register from './pages/Register';
 import AdminHomePage from './pages/admin/AdminHomePage';
 import LessonsDashboard from './pages/admin/LessonsDashboard';
 import QuestionsDashboard from './pages/admin/QuestionsDashboard';
-import ExamsDashboard from './pages/admin/ExamsDashboard';
+import ExamsDashboard from './pages/admin/ExamsDashboard/ExamsDashboard';
+import CreateExam from './pages/admin/ExamsDashboard/CreateExam';
+import EditExam from './pages/admin/ExamsDashboard/EditExam';
+
+
 import NotFound from './pages/NotFound';
 import { ToastContainer } from 'react-toastify';
 import ProtectedRoute from './components/ProtectedRoute';
@@ -26,11 +30,15 @@ function App() {
         { path: 'admin-lessons', element: <ProtectedRoute allowedRoles={['admin', 'super-admin']}><LessonsDashboard /></ProtectedRoute> },
         { path: 'admin-questions', element: <ProtectedRoute allowedRoles={['admin', 'super-admin']}><QuestionsDashboard /></ProtectedRoute> },
         { path: 'admin-exams', element: <ProtectedRoute allowedRoles={['admin', 'super-admin']}><ExamsDashboard /></ProtectedRoute> },
+        { path: 'create-exam', element: <ProtectedRoute allowedRoles={['admin', 'super-admin']}><CreateExam /></ProtectedRoute> },
+        { path: 'edit-exam/:id', element: <ProtectedRoute allowedRoles={['admin', 'super-admin']}><EditExam /></ProtectedRoute> },
+
+
       ]
     },
     { path: '/login', element: <PublicRoute><Login /></PublicRoute> },
     { path: '/register', element: <PublicRoute><Register /></PublicRoute> },
-    { path: '*', element: <NotFound/> }
+    { path: '*', element: <NotFound /> }
   ])
   return (
     <>
