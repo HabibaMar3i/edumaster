@@ -1,7 +1,7 @@
 export default function QuestionsDashboard() {
-    return (
-        <div>
-            <h1>Questions Dashboard</h1>
-        </div>
-    )
+  return (
+    <div>
+      <h1>Questions Dashboard test git</h1>
+    </div>
+  );
 }
