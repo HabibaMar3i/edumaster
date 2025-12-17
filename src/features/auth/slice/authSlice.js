@@ -1,22 +1,5 @@
-import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-
-export const register = createAsyncThunk("auth/register", async (data) => {
-    const res = await fetch("https://edu-master-psi.vercel.app/auth/signup", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(data),
-    });
-    return res.json();
-});
-
-export const login = createAsyncThunk("auth/login", async (data) => {
-    const res = await fetch("https://edu-master-psi.vercel.app/auth/login", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(data),
-    });
-    return res.json();
-});
+import { createSlice } from "@reduxjs/toolkit";
+import { register, login } from "../api/authApi";
 
 const authSlice = createSlice({
     name: "auth",
