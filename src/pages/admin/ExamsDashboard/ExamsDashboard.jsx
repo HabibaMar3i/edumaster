@@ -1,9 +1,16 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
-import { Link } from "react-router-dom";
+// import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
+import { Button, useDisclosure } from "@heroui/react";
+import Modal from "../../../components/Modal";
+import { toast } from "react-toastify";
 
 export default function ExamsList() {
+    const [selectedExam, setSelectedExam] = useState(null);
+
+    const { isOpen, onOpen, onOpenChange } = useDisclosure();
+
     const token = useSelector((state) => state.auth.token);
 
     const [exams, setExams] = useState([]);
@@ -40,32 +47,52 @@ export default function ExamsList() {
         try {
             await axios.delete(
                 `https://edu-master-psi.vercel.app/exam/${id}`,
-                {
-                    headers: { token },
-                }
+                { headers: { token } }
             );
 
             setExams((prev) => prev.filter((exam) => exam._id !== id));
+
+            toast.success("Exam deleted successfully 🗑️");
         } catch (error) {
-            console.error(error.response?.data || error);
-            alert("Failed to delete exam");
+            toast.error(
+                error.response?.data?.message || "Failed to delete exam ❌",
+                {
+                    autoClose: 3000,
+                    closeOnClick: true,
+                    pauseOnHover: false,
+                }
+            );
         }
     }
+
 
 
     if (loading) {
         return <p className="p-6">Loading exams...</p>;
     }
 
+
     return (
         <div className="p-6 bg-slate-100 min-h-screen">
             <div className="bg-white rounded-xl shadow p-6">
                 <div className="flex justify-between items-center mb-4">
                     <h2 className="text-xl font-bold">Exams</h2>
-                    <Link to={"/create-exam"} className="px-4 py-2 bg-[#49bbbd] text-white rounded-lg">
+                    {/* <Link to={"/create-exam"} className="px-4 py-2 bg-[#49bbbd] text-white rounded-lg">
                         + Create Exam
-                    </Link>
-                </div>
+                    </Link> */}
+                    <Button
+                        className="px-4 py-2 bg-[#49bbbd] text-white rounded-lg text-md"
+                        onPress={() => {
+                            setSelectedExam(null);
+                            onOpen();
+                        }}
+                    >
+                        + Create Exam</Button>
+                    <Modal
+                        isOpen={isOpen}
+                        onOpenChange={onOpenChange}
+                        exam={selectedExam}
+                    />                </div>
 
                 <table className="w-full text-sm">
                     <thead className="bg-slate-100 text-left">
@@ -98,12 +125,22 @@ export default function ExamsList() {
                                 {/* ACTIONS */}
                                 <td className="p-3 flex gap-2">
                                     {/* EDIT */}
-                                    <Link
+                                    {/* <Link
                                         to={`/edit-exam/${exam._id}`}
                                         className="px-3 py-1 text-xs rounded bg-blue-100 text-blue-700 hover:bg-blue-200"
                                     >
                                         Edit
-                                    </Link>
+                                    </Link> */}
+                                    <Button
+                                        className="px-3 py-1 text-xs rounded bg-blue-100 text-blue-700 hover:bg-blue-200"
+                                        onPress={() => {
+                                            setSelectedExam(exam); // Edit
+                                            onOpen();
+                                        }}
+                                    >
+                                        Edit
+                                    </Button>
+
 
                                     {/* DELETE */}
                                     <button
