@@ -34,15 +34,9 @@ export default function ExamsList() {
     );
     if (!confirmDelete) return;
 
-    try {
-      await axios.delete(`https://edu-master-psi.vercel.app/exam/${id}`, {
-        headers: { token },
-      });
 
-      setExams((prev) => prev.filter((exam) => exam._id !== id));
-    } catch (error) {
-      console.error(error.response?.data || error);
-      alert("Failed to delete exam");
+    if (loading) {
+        return <p className="p-6">Loading exams...</p>;
     }
   }
 
@@ -62,59 +56,5 @@ export default function ExamsList() {
             + Create Exam
           </Link>
         </div>
-
-        <table className="w-full text-sm">
-          <thead className="bg-slate-100 text-left">
-            <tr>
-              <th className="p-3">Title</th>
-              <th className="p-3">Class</th>
-              <th className="p-3">Duration</th>
-              <th className="p-3">Status</th>
-              <th className="p-3">Actions</th>
-            </tr>
-          </thead>
-
-          <tbody>
-            {exams.map((exam) => (
-              <tr key={exam._id} className="border-t">
-                <td className="p-3">{exam.title}</td>
-                <td className="p-3">{exam.classLevel}</td>
-                <td className="p-3">{exam.duration} min</td>
-                <td className="p-3">
-                  <span
-                    className={`px-2 py-1 rounded text-xs ${
-                      exam.isPublished
-                        ? "bg-green-100 text-green-700"
-                        : "bg-yellow-100 text-yellow-700"
-                    }`}
-                  >
-                    {exam.isPublished ? "Published" : "Draft"}
-                  </span>
-                </td>
-
-                {/* ACTIONS */}
-                <td className="p-3 flex gap-2">
-                  {/* EDIT */}
-                  <Link
-                    to={`/edit-exam/${exam._id}`}
-                    className="px-3 py-1 text-xs rounded bg-blue-100 text-blue-700 hover:bg-blue-200"
-                  >
-                    Edit
-                  </Link>
-
-                  {/* DELETE */}
-                  <button
-                    onClick={() => deleteExam(exam._id)}
-                    className="px-3 py-1 text-xs rounded bg-red-100 text-red-700 hover:bg-red-200"
-                  >
-                    Delete
-                  </button>
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
-    </div>
-  );
+    );
 }
