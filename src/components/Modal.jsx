@@ -10,8 +10,13 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { toast } from "react-toastify";
+import { useDispatch } from "react-redux";
+import { fetchExams } from "../../src/features/auth/slice/examSlice";
+
 
 export default function ModalComp({ isOpen, onOpenChange, exam }) {
+    const dispatch = useDispatch();
+
     const token = useSelector((state) => state.auth.token);
     const [loading, setLoading] = useState(false);
 
@@ -25,9 +30,6 @@ export default function ModalComp({ isOpen, onOpenChange, exam }) {
         isPublished: false,
     });
 
-    /* ======================
-       لو Edit → املأ الفورم
-    ====================== */
     useEffect(() => {
         if (exam) {
             setForm({
@@ -84,6 +86,7 @@ export default function ModalComp({ isOpen, onOpenChange, exam }) {
                     payload,
                     { headers: { token } }
                 );
+
             } else {
                 // CREATE
                 await axios.post(
@@ -101,6 +104,8 @@ export default function ModalComp({ isOpen, onOpenChange, exam }) {
                 isLoading: false,
                 autoClose: 3000,
             });
+            dispatch(fetchExams(token)); // 👈 دي كانت ناقصة
+            onOpenChange(false);
 
             onOpenChange(false);
 

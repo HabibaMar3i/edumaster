@@ -29,7 +29,6 @@ export default function EditExam() {
                 headers: { token },
             }
         );
-        // console.log(res.data.data)
         setForm({
             title: res.data.data.title,
             description: res.data.data.description,
@@ -94,15 +93,15 @@ export default function EditExam() {
     }
 
     useEffect(() => {
-        getexam()
-    }, [])
+        if (token) {
+            getexam();
+        }
+    }, [id]);
 
     function handleChange(e) {
         const { name, value, type, checked } = e.target;
         setForm({
             ...form,
-            duration: Number(form.duration),
-
             [name]: type === "checkbox" ? checked : value,
         });
     }
