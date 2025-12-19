@@ -104,7 +104,7 @@ export default function ModalComp({ isOpen, onOpenChange, exam }) {
                 isLoading: false,
                 autoClose: 3000,
             });
-            dispatch(fetchExams(token)); // 👈 دي كانت ناقصة
+            dispatch(fetchExams(token));
             onOpenChange(false);
 
             onOpenChange(false);
