@@ -1,6 +1,6 @@
 import { Button, Input } from '@heroui/react'
 import { useDispatch, useSelector } from 'react-redux'
-import { login } from '../features/auth/authSlice'
+import { login } from '../features/auth/api/authApi'
 import { useState, useEffect } from 'react'
 import { toast } from 'react-toastify'
 import { useNavigate } from 'react-router-dom'

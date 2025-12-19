@@ -1,7 +1,10 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
-import { Link } from "react-router-dom";
+// import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
+import { Button, useDisclosure } from "@heroui/react";
+import Modal from "../../../components/Modal";
+import { toast } from "react-toastify";
 
 export default function ExamsList() {
   const token = useSelector((state) => state.auth.token);

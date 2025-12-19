@@ -3,6 +3,7 @@ import axios from "axios";
 import { useNavigate, useParams } from "react-router-dom";
 
 import { useSelector } from "react-redux";
+import { toast } from "react-toastify";
 
 export default function EditExam() {
     const navigate = useNavigate()
@@ -42,9 +43,17 @@ export default function EditExam() {
         );
     }
     async function edit() {
-        if (!token) return alert("Not authenticated");
+        if (!token) {
+            toast.error("Not authenticated");
+            return;
+        }
 
         setLoading(true);
+        setError(false);
+
+        // Toast loading
+        const toastId = toast.loading("Updating exam...");
+
         try {
             const payload = {
                 ...form,
@@ -54,21 +63,36 @@ export default function EditExam() {
             const res = await axios.put(
                 `https://edu-master-psi.vercel.app/exam/${id}`,
                 payload,
-                {
-                    headers: { token },
-                }
+                { headers: { token } }
             );
 
-            console.log("UPDATED:", res.data);
-            alert("Exam updated successfully");
-            navigate("admin-exams")
+            toast.update(toastId, {
+                render: "Exam updated successfully ✅",
+                type: "success",
+                isLoading: false,
+                autoClose: 3000,
+            });
+
+            navigate("/admin-exams");
+
         } catch (error) {
-            // console.error(error.response?.data || error);
-            setError(error.response?.data?.message || "Something went wrong");
+            const msg =
+                error.response?.data?.message || "Something went wrong";
+
+            setError(msg);
+
+            toast.update(toastId, {
+                render: msg,
+                type: "error",
+                isLoading: false,
+                autoClose: 4000,
+            });
+
         } finally {
             setLoading(false);
         }
     }
+
     useEffect(() => {
         getexam()
     }, [])
