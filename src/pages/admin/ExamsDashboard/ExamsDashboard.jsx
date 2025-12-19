@@ -1,43 +1,27 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
-// import { Link } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Button, useDisclosure } from "@heroui/react";
 import Modal from "../../../components/Modal";
 import { toast } from "react-toastify";
+import { fetchExams } from "../../../features/auth/slice/examSlice";
 
 export default function ExamsList() {
     const [selectedExam, setSelectedExam] = useState(null);
 
     const { isOpen, onOpen, onOpenChange } = useDisclosure();
 
+
+    const dispatch = useDispatch();
     const token = useSelector((state) => state.auth.token);
 
-    const [exams, setExams] = useState([]);
-    const [loading, setLoading] = useState(true);
-
     useEffect(() => {
-        fetchExams();
-    }, []);
+        dispatch(fetchExams(token));
+    }, [dispatch, token]);
 
-    async function fetchExams() {
-        try {
-            const res = await axios.get(
-                "https://edu-master-psi.vercel.app/exam",
-                {
-                    headers: {
-                        token
-                    },
-                }
-            );
-            console.log(res)
-            setExams(res.data.data || res.data);
-        } catch (error) {
-            console.error(error);
-        } finally {
-            setLoading(false);
-        }
-    }
+    const { exams, loading } = useSelector(
+        (state) => state.exams
+    );
     async function deleteExam(id) {
         const confirmDelete = window.confirm(
             "Are you sure you want to delete this exam?"
@@ -50,7 +34,7 @@ export default function ExamsList() {
                 { headers: { token } }
             );
 
-            setExams((prev) => prev.filter((exam) => exam._id !== id));
+            dispatch(fetchExams(token));
 
             toast.success("Exam deleted successfully 🗑️");
         } catch (error) {
@@ -77,9 +61,7 @@ export default function ExamsList() {
             <div className="bg-white rounded-xl shadow p-6">
                 <div className="flex justify-between items-center mb-4">
                     <h2 className="text-xl font-bold">Exams</h2>
-                    {/* <Link to={"/create-exam"} className="px-4 py-2 bg-[#49bbbd] text-white rounded-lg">
-                        + Create Exam
-                    </Link> */}
+
                     <Button
                         className="px-4 py-2 bg-[#49bbbd] text-white rounded-lg text-md"
                         onPress={() => {
