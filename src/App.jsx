@@ -6,7 +6,7 @@ import Exams from "./pages/Exams";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
 import AdminHomePage from "./pages/admin/AdminHomePage";
-import LessonsDashboard from "./pages/admin/LessonsDashboard";
+import LessonsDashboard from "./pages/admin/LessonsDashboard/LessonsDashboard";
 import QuestionsDashboard from "./pages/admin/QuestionsDashboard/QuestionsDashboard";
 import ExamsDashboard from "./pages/admin/ExamsDashboard/ExamsDashboard";
 import CreateExam from "./pages/admin/ExamsDashboard/CreateExam";
