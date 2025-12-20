@@ -6,19 +6,27 @@ import {
     ModalFooter,
     Button,
 } from "@heroui/react";
-import axios from "axios";
 import { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { toast } from "react-toastify";
-import { useDispatch } from "react-redux";
-import { fetchExams } from "../../src/features/auth/slice/examSlice";
 
+import {
+    createExam,
+    updateExam,
+} from "../features/exams/api/examApi";
 
 export default function ModalComp({ isOpen, onOpenChange, exam }) {
     const dispatch = useDispatch();
-
     const token = useSelector((state) => state.auth.token);
-    const [loading, setLoading] = useState(false);
+
+    const { creating, updatingId } = useSelector(
+        (state) => state.exams
+    );
+
+    const isEditing = Boolean(exam);
+    const loading = isEditing
+        ? updatingId === exam?._id
+        : creating;
 
     const [form, setForm] = useState({
         title: "",
@@ -30,6 +38,7 @@ export default function ModalComp({ isOpen, onOpenChange, exam }) {
         isPublished: false,
     });
 
+    /* ================= FILL FORM ================= */
     useEffect(() => {
         if (exam) {
             setForm({
@@ -62,65 +71,54 @@ export default function ModalComp({ isOpen, onOpenChange, exam }) {
         });
     }
 
-    async function submit() {
+    /* ================= SUBMIT ================= */
+    function submit() {
         if (!token) {
             toast.error("Not authenticated");
             return;
         }
 
-        setLoading(true);
+        const payload = {
+            ...form,
+            duration: Number(form.duration),
+        };
+
+        const action = exam
+            ? updateExam({
+                id: exam._id,
+                data: payload,
+                token,
+            })
+            : createExam({
+                data: payload,
+                token,
+            });
+
         const toastId = toast.loading(
             exam ? "Updating exam..." : "Creating exam..."
         );
 
-        try {
-            const payload = {
-                ...form,
-                duration: Number(form.duration),
-            };
-
-            if (exam) {
-                // EDIT
-                await axios.put(
-                    `https://edu-master-psi.vercel.app/exam/${exam._id}`,
-                    payload,
-                    { headers: { token } }
-                );
-
-            } else {
-                // CREATE
-                await axios.post(
-                    "https://edu-master-psi.vercel.app/exam",
-                    payload,
-                    { headers: { token } }
-                );
-            }
-
-            toast.update(toastId, {
-                render: exam
-                    ? "Exam updated successfully ✅"
-                    : "Exam created successfully 🎉",
-                type: "success",
-                isLoading: false,
-                autoClose: 3000,
+        dispatch(action)
+            .unwrap()
+            .then(() => {
+                toast.update(toastId, {
+                    render: exam
+                        ? "Exam updated successfully ✅"
+                        : "Exam created successfully 🎉",
+                    type: "success",
+                    isLoading: false,
+                    autoClose: 3000,
+                });
+                onOpenChange(false);
+            })
+            .catch((err) => {
+                toast.update(toastId, {
+                    render: err || "Something went wrong ❌",
+                    type: "error",
+                    isLoading: false,
+                    autoClose: 4000,
+                });
             });
-            dispatch(fetchExams(token));
-            onOpenChange(false);
-
-            onOpenChange(false);
-
-        } catch (error) {
-            toast.update(toastId, {
-                render: error.response?.data?.message || "Something went wrong ❌",
-                type: "error",
-                isLoading: false,
-                autoClose: 4000,
-                closeOnClick: true,
-                pauseOnHover: false,
-            });
-        } finally {
-            setLoading(false);
-        }
     }
 
     return (
@@ -129,6 +127,7 @@ export default function ModalComp({ isOpen, onOpenChange, exam }) {
             onOpenChange={onOpenChange}
             size="2xl"
             scrollBehavior="inside"
+            className="mx-2 sm:mx-0"
         >
             <ModalContent>
                 {(onClose) => (
@@ -151,7 +150,7 @@ export default function ModalComp({ isOpen, onOpenChange, exam }) {
                                 />
                             </div>
 
-                            <div className="grid grid-cols-2 gap-4">
+                            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                                 <div>
                                     <label className="block text-sm font-medium mb-1">
                                         Class Level
@@ -183,29 +182,41 @@ export default function ModalComp({ isOpen, onOpenChange, exam }) {
                                 </div>
                             </div>
 
-                            <div className="grid grid-cols-2 gap-4">
-                                <input
-                                    type="date"
-                                    name="startDate"
-                                    value={form.startDate}
-                                    onChange={handleChange}
-                                    className="border rounded-lg px-3 py-2"
-                                />
-                                <input
-                                    type="date"
-                                    name="endDate"
-                                    value={form.endDate}
-                                    onChange={handleChange}
-                                    className="border rounded-lg px-3 py-2"
-                                />
+                            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                                <div>
+                                    <label className="block text-sm font-medium mb-1">
+                                        Start Date
+                                    </label>
+                                    <input
+                                        type="date"
+                                        name="startDate"
+                                        value={form.startDate}
+                                        onChange={handleChange}
+                                        className="w-full border rounded-lg px-3 py-2"
+                                    />
+                                </div>
+
+                                <div>
+                                    <label className="block text-sm font-medium mb-1">
+                                        End Date
+                                    </label>
+                                    <input
+                                        type="date"
+                                        name="endDate"
+                                        value={form.endDate}
+                                        onChange={handleChange}
+                                        className="w-full border rounded-lg px-3 py-2"
+                                    />
+                                </div>
                             </div>
+
 
                             <textarea
                                 name="description"
                                 value={form.description}
                                 onChange={handleChange}
-                                rows="3"
-                                className="w-full border rounded-lg px-3 py-2"
+                                rows={6}
+                                className="w-full border rounded-lg px-3 py-2 resize-none sm:rows-10"
                             />
 
                             <label className="flex items-center gap-2">
@@ -219,12 +230,17 @@ export default function ModalComp({ isOpen, onOpenChange, exam }) {
                             </label>
                         </ModalBody>
 
-                        <ModalFooter>
-                            <Button variant="light" onPress={onClose}>
+                        <ModalFooter className="flex flex-col sm:flex-row gap-2">
+                            <Button
+                                variant="light"
+                                onPress={onClose}
+                                className="w-full sm:w-auto"
+                            >
                                 Cancel
                             </Button>
+
                             <Button
-                                className="bg-[#49bbbd] text-white"
+                                className="bg-[#49bbbd] text-white w-full sm:w-auto"
                                 isLoading={loading}
                                 onPress={submit}
                             >
