@@ -18,6 +18,7 @@ import ProtectedRoute from "./components/ProtectedRoute";
 import PublicRoute from "./components/PublicRoute";
 import RoleBasedRedirect from "./components/RoleBasedRedirect";
 import AddQuestions from "./pages/admin/QuestionsDashboard/AddQuestions";
+import ProfileDetail from "./pages/admin/profile/profileDetail.jsx";
 function App() {
   const routes = createBrowserRouter([
     {
@@ -87,6 +88,26 @@ function App() {
               <EditExam />
             </ProtectedRoute>
           ),
+        },
+        {
+          path: "profile/",
+          element: (
+              <ProtectedRoute allowedRoles={["admin", "super-admin"]}>
+                <ProfileDetail />
+              </ProtectedRoute>
+          ),
+          children: [
+            { index: true, element: <ProtectedRoute allowedRoles={["admin", "super-admin"]}>
+                <ProfileDetail />
+              </ProtectedRoute> },
+            { path: "editUser", element: <ProtectedRoute allowedRoles={["admin", "super-admin"]}>
+                <ProfileDetail />
+              </ProtectedRoute>},
+            { path: "editPass", element: <ProtectedRoute allowedRoles={["admin", "super-admin"]}>
+                <ProfileDetail />
+              </ProtectedRoute>}  ,
+            {}
+          ]
         },
       ],
     },

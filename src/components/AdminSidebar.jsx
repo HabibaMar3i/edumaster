@@ -8,6 +8,8 @@ const navigation = [
   { name: 'Admin Lessons', href: '/admin-lessons', icon: 'fas fa-chalkboard-teacher' },
   { name: 'Admin Questions', href: '/admin-questions', icon: 'fas fa-question-circle' },
   { name: 'Admin Exams', href: '/admin-exams', icon: 'fas fa-clipboard-list' },
+  { name: 'Profile', href: '/profile/', icon: 'fas fa-user-circle' },
+
 ]
 
 export default function AdminSidebar() {
@@ -32,7 +34,7 @@ export default function AdminSidebar() {
                 <Link
                   key={item.name}
                   to={item.href}
-                  className={`flex items-center p-3 rounded-lg transition-colors block ${
+                  className={`flex items-center p-3 rounded-lg transition-colors  ${
                     isActive
                       ? 'bg-white/20 text-white'
                       : 'text-white/80 hover:bg-white/10 hover:text-white'
@@ -41,6 +43,7 @@ export default function AdminSidebar() {
                   <i className={`${item.icon} mr-3`}></i>
                   {item.name}
                 </Link>
+                
               )
             })}
           </nav>
