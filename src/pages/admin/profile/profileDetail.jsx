@@ -1,4 +1,4 @@
-import {useEffect} from "react";
+import {useEffect, useRef} from "react";
 import {getProfile} from "../../../features/user/api/userApi.js";
 import {useDispatch, useSelector} from "react-redux";
 import { Link } from "react-router-dom";
@@ -6,12 +6,15 @@ import { Link } from "react-router-dom";
 export default function ProfileDetail() {
     const dispatch = useDispatch();
     const {data: user} = useSelector((state) => state.user || {});
+    const fetched = useRef(false);
+
     useEffect(() => {
-
-        dispatch(getProfile());
-
-
-    }, [dispatch]);
+        if (!user && !fetched.current ) {
+            fetched.current = true;
+            console.log("Fetching user profile...");
+            dispatch(getProfile());
+        }
+    }, [dispatch, user]);
 
     if (!user) {
         return <div className="p-10 text-center">Loading profile...</div>;

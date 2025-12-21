@@ -1,6 +1,7 @@
 import { Link, useLocation, useNavigate } from 'react-router-dom'
 import { useDispatch } from 'react-redux'
 import { logout } from '../features/auth/slice/authSlice'
+import { clearUser } from '../features/user/slice/userSlice'
 import { Button, Card, CardBody, Divider } from '@heroui/react'
 
 const navigation = [
@@ -19,6 +20,7 @@ export default function AdminSidebar() {
 
   const handleLogout = () => {
     dispatch(logout())
+    dispatch(clearUser())
     navigate('/login')
   }
 

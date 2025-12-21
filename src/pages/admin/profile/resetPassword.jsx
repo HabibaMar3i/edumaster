@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { resetPassword, forgotPassword } from "../../../features/user/api/userApi.js";
@@ -16,17 +16,17 @@ export default function ResetPassword() {
         newPassword: "",
         cpassword: ""
     });
-    const [otpSent, setOtpSent] = useState(false);
-
-    // useEffect(() => {
-    //     if (user?.data?.email && !formData.email) {
-    //         setFormData(prev => ({ ...prev, email: user.data.email }));
-    //     }
-    // }, [user, formData.email]);
+    const otpSentRef = useRef(false);
 
     useEffect(() => {
-        if (formData.email && !otpSent) {
-            setOtpSent(true);
+        if (user?.data?.email && !formData.email) {
+            setFormData(prev => ({ ...prev, email: user.data.email }));
+        }
+    }, [user, formData.email]);
+
+    useEffect(() => {
+        if (formData.email && !otpSentRef.current) {
+            otpSentRef.current = true;
             dispatch(forgotPassword(formData.email))
                 .unwrap()
                 .then(() => {
@@ -34,10 +34,11 @@ export default function ResetPassword() {
                 })
                 .catch((err) => {
                     toast.error(err?.message || "Failed to send OTP");
-                    setOtpSent(false); // Allow retry if failed? Or maybe not automatically.
+                    // Reset ref if we want to allow retry on next mount or manual trigger
+                    // But for automatic sending on mount, it's safer to stay true
                 });
         }
-    }, [dispatch, formData.email, otpSent]);
+    }, [dispatch, formData.email]);
 
     const handleChange = (e) => {
         setFormData({
