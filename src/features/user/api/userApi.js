@@ -21,6 +21,8 @@ export const getProfile = createAsyncThunk(
         }
     }
 );
+
+
 export const updateProfile = createAsyncThunk(
     'user/updateProfile',
     async ({ userData, userId }, { rejectWithValue, getState }) => {
@@ -37,6 +39,37 @@ export const updateProfile = createAsyncThunk(
                 headers: {
                     token: `${token}`
                 }
+            });
+            return response.data;
+        } catch (error) {
+            return rejectWithValue(error.response?.data || "error");
+        }
+    }
+);
+
+export const forgotPassword = createAsyncThunk(
+    'user/forgotPassword',
+    async (email, { rejectWithValue, getState }) => {
+        try {
+            const response = await axios.post(`${baseUrl}/user/forgot-password`, {
+                email
+            });
+            return response.data;
+        } catch (error) {
+            return rejectWithValue(error.response?.data || "error");
+        }
+    }
+);
+
+export const resetPassword = createAsyncThunk(
+    'user/resetPassword',
+    async ({ email, otp, newPassword, cpassword }, { rejectWithValue }) => {
+        try {
+            const response = await axios.post(`${baseUrl}/user/reset-password`, {
+                email,
+                otp,
+                newPassword,
+                cpassword
             });
             return response.data;
         } catch (error) {

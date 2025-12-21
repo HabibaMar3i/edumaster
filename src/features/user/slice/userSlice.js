@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import {getProfile, updateProfile} from "../api/userApi.js";
+import {getProfile, updateProfile, forgotPassword, resetPassword} from "../api/userApi.js";
 
 const initialState = {
     data: null,
@@ -11,7 +11,6 @@ const userSlice = createSlice({
     name: "user",
     initialState,
     reducers: {
-        // You can add synchronous actions here, like logout
         clearUser: (state) => {
             state.data = null;
             state.error = null;
@@ -40,6 +39,28 @@ const userSlice = createSlice({
                 state.data = action.payload;
             })
             .addCase(updateProfile.rejected, (state, action) => {
+                state.isLoading = false;
+                state.error = action.payload;
+            })
+            .addCase(forgotPassword.pending, (state) => {
+                state.isLoading = true;
+                state.error = null;
+            })
+            .addCase(forgotPassword.fulfilled, (state) => {
+                state.isLoading = false;
+            })
+            .addCase(forgotPassword.rejected, (state, action) => {
+                state.isLoading = false;
+                state.error = action.payload;
+            })
+            .addCase(resetPassword.pending, (state) => {
+                state.isLoading = true;
+                state.error = null;
+            })
+            .addCase(resetPassword.fulfilled, (state) => {
+                state.isLoading = false;
+            })
+            .addCase(resetPassword.rejected, (state, action) => {
                 state.isLoading = false;
                 state.error = action.payload;
             });
