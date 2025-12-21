@@ -19,6 +19,7 @@ import PublicRoute from "./components/PublicRoute";
 import RoleBasedRedirect from "./components/RoleBasedRedirect";
 import AddQuestions from "./pages/admin/QuestionsDashboard/AddQuestions";
 import ProfileDetail from "./pages/admin/profile/profileDetail.jsx";
+import EditProfile from "./pages/admin/profile/editProfile.jsx";
 function App() {
   const routes = createBrowserRouter([
     {
@@ -90,24 +91,33 @@ function App() {
           ),
         },
         {
-          path: "profile/",
-          element: (
-              <ProtectedRoute allowedRoles={["admin", "super-admin"]}>
-                <ProfileDetail />
-              </ProtectedRoute>
-          ),
+          path: "profile",
           children: [
-            { index: true, element: <ProtectedRoute allowedRoles={["admin", "super-admin"]}>
-                <ProfileDetail />
-              </ProtectedRoute> },
-            { path: "editUser", element: <ProtectedRoute allowedRoles={["admin", "super-admin"]}>
-                <ProfileDetail />
-              </ProtectedRoute>},
-            { path: "editPass", element: <ProtectedRoute allowedRoles={["admin", "super-admin"]}>
-                <ProfileDetail />
-              </ProtectedRoute>}  ,
-            {}
-          ]
+            {
+              index: true,
+              element: (
+                <ProtectedRoute allowedRoles={["admin", "super-admin"]}>
+                  <ProfileDetail />
+                </ProtectedRoute>
+              ),
+            },
+            {
+              path: "editUser/:userId",
+              element: (
+                <ProtectedRoute allowedRoles={["admin", "super-admin"]}>
+                  <EditProfile />
+                </ProtectedRoute>
+              ),
+            },
+            {
+              path: "editPass",
+              element: (
+                <ProtectedRoute allowedRoles={["admin", "super-admin"]}>
+                  <ProfileDetail />
+                </ProtectedRoute>
+              ),
+            },
+          ],
         },
       ],
     },

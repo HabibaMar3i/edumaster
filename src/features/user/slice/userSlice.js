@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import {getProfile} from "../api/userApi.js";
+import {getProfile, updateProfile} from "../api/userApi.js";
 
 const initialState = {
     data: null,
@@ -25,9 +25,21 @@ const userSlice = createSlice({
             })
             .addCase(getProfile.fulfilled, (state, action) => {
                 state.isLoading = false;
-                state.data = action.payload; // Updates 'state.user.data'
+                state.data = action.payload;
             })
             .addCase(getProfile.rejected, (state, action) => {
+                state.isLoading = false;
+                state.error = action.payload;
+            })
+            .addCase(updateProfile.pending, (state) => {
+                state.isLoading = true;
+                state.error = null;
+            })
+            .addCase(updateProfile.fulfilled, (state, action) => {
+                state.isLoading = false;
+                state.data = action.payload;
+            })
+            .addCase(updateProfile.rejected, (state, action) => {
                 state.isLoading = false;
                 state.error = action.payload;
             });

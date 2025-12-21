@@ -9,13 +9,35 @@ export const getProfile = createAsyncThunk(
         try {
 
             const token = getState().auth.token;
-            console.log(token);
             const response = await axios.get(`${baseUrl}/user/`, {
                 headers: {
                     token: `${token}`
                 }
             });
-            console.log(response);
+            localStorage.setItem("userId", response.data.data._id);
+            return response.data;
+        } catch (error) {
+            return rejectWithValue(error.response?.data || "error");
+        }
+    }
+);
+export const updateProfile = createAsyncThunk(
+    'user/updateProfile',
+    async ({ userData, userId }, { rejectWithValue, getState }) => {
+        try {
+            const { fullName, email, phoneNumber, classLevel } = userData;
+            const token = getState().auth.token;
+
+            const response = await axios.put(`${baseUrl}/user/${userId}`, {
+                fullName,
+                email,
+                phoneNumber,
+                classLevel,
+            }, {
+                headers: {
+                    token: `${token}`
+                }
+            });
             return response.data;
         } catch (error) {
             return rejectWithValue(error.response?.data || "error");

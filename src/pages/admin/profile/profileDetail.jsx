@@ -1,6 +1,7 @@
 import {useEffect} from "react";
 import {getProfile} from "../../../features/user/api/userApi.js";
 import {useDispatch, useSelector} from "react-redux";
+import { Link } from "react-router-dom";
 
 export default function ProfileDetail() {
     const dispatch = useDispatch();
@@ -8,12 +9,13 @@ export default function ProfileDetail() {
     useEffect(() => {
 
         dispatch(getProfile());
+
+
     }, [dispatch]);
 
     if (!user) {
         return <div className="p-10 text-center">Loading profile...</div>;
     }
-    console.log(user);
     return (
         <div className="container flex flex-col justify-center items-center gap-7 mt-4 mx-auto p-3 ">
 
@@ -76,9 +78,9 @@ export default function ProfileDetail() {
                     </tbody>
                 </table>
             </div>
-            <div className="bg-[#49BBBD] text-white rounded-2xl p-5">edit</div>
-            <div className="bg-warning text-white rounded-2xl p-5">reset Password</div>
-            <div className="bg-danger text-white rounded-2xl p-5">Delete acount</div>
+            <Link to={`/profile/editUser/${user.data._id}`} className="bg-[#49BBBD] w-1/5 text-center text-white rounded-2xl p-5">edit</Link>
+            <div className="bg-warning w-1/5 text-center text-white rounded-2xl p-5">reset Password</div>
+            <div className="bg-danger w-1/5 text-center text-white rounded-2xl p-5">Delete acount</div>
 
         </div>
     );
