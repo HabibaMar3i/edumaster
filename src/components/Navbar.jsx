@@ -2,6 +2,7 @@ import { Navbar, NavbarBrand, NavbarContent, NavbarItem, NavbarMenuToggle, Navba
 import { Link } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { logout } from '../features/auth/slice/authSlice';
+import { clearUser } from '../features/user/slice/userSlice';
 import { useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 
@@ -13,6 +14,7 @@ export default function NavbarComponent() {
 
     const handleLogout = () => {
         dispatch(logout());
+        dispatch(clearUser());
         navigate('/register');
     };
 
