@@ -20,6 +20,7 @@ import RoleBasedRedirect from "./components/RoleBasedRedirect";
 import AddQuestions from "./pages/admin/QuestionsDashboard/AddQuestions";
 import ProfileDetail from "./pages/admin/profile/profileDetail.jsx";
 import EditProfile from "./pages/admin/profile/editProfile.jsx";
+import ResetPassword from "./pages/admin/profile/resetPassword.jsx";
 function App() {
   const routes = createBrowserRouter([
     {
@@ -110,10 +111,10 @@ function App() {
               ),
             },
             {
-              path: "editPass",
+              path: "resetPassword",
               element: (
                 <ProtectedRoute allowedRoles={["admin", "super-admin"]}>
-                  <ProfileDetail />
+                  <ResetPassword />
                 </ProtectedRoute>
               ),
             },
