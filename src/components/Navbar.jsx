@@ -50,6 +50,11 @@ export default function NavbarComponent() {
                                 Exams
                             </Link>
                         </NavbarItem>
+                        <NavbarItem>
+                            <Link to="/profile" className="text-foreground">
+                                Profile
+                            </Link>
+                        </NavbarItem>
                     </>
                 )}
                 
@@ -91,6 +96,11 @@ export default function NavbarComponent() {
                         <NavbarMenuItem onClick={() => setIsMenuOpen(false)}>
                             <Link to="/exams" className="w-full" size="lg">
                                 Exams
+                            </Link>
+                        </NavbarMenuItem>
+                        <NavbarMenuItem onClick={() => setIsMenuOpen(false)}>
+                            <Link to="/profile" className="w-full" size="lg">
+                                Profile
                             </Link>
                         </NavbarMenuItem>
                     </>
