@@ -6,7 +6,7 @@ import Exams from "./pages/Exams";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
 import AdminHomePage from "./pages/admin/AdminHomePage";
-import LessonsDashboard from "./pages/admin/LessonsDashboard";
+import LessonsDashboard from "./pages/admin/LessonsDashboard/LessonsDashboard";
 import QuestionsDashboard from "./pages/admin/QuestionsDashboard/QuestionsDashboard";
 import ExamsDashboard from "./pages/admin/ExamsDashboard/ExamsDashboard";
 import CreateExam from "./pages/admin/ExamsDashboard/CreateExam";
@@ -18,6 +18,9 @@ import ProtectedRoute from "./components/ProtectedRoute";
 import PublicRoute from "./components/PublicRoute";
 import RoleBasedRedirect from "./components/RoleBasedRedirect";
 import AddQuestions from "./pages/admin/QuestionsDashboard/AddQuestions";
+import ProfileDetail from "./pages/admin/profile/profileDetail.jsx";
+import EditProfile from "./pages/admin/profile/editProfile.jsx";
+import ResetPassword from "./pages/admin/profile/resetPassword.jsx";
 function App() {
   const routes = createBrowserRouter([
     {
@@ -87,6 +90,35 @@ function App() {
               <EditExam />
             </ProtectedRoute>
           ),
+        },
+        {
+          path: "profile",
+          children: [
+            {
+              index: true,
+              element: (
+                <ProtectedRoute allowedRoles={["admin", "super-admin"]}>
+                  <ProfileDetail />
+                </ProtectedRoute>
+              ),
+            },
+            {
+              path: "editUser/:userId",
+              element: (
+                <ProtectedRoute allowedRoles={["admin", "super-admin"]}>
+                  <EditProfile />
+                </ProtectedRoute>
+              ),
+            },
+            {
+              path: "resetPassword",
+              element: (
+                <ProtectedRoute allowedRoles={["admin", "super-admin"]}>
+                  <ResetPassword />
+                </ProtectedRoute>
+              ),
+            },
+          ],
         },
       ],
     },
