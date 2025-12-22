@@ -11,7 +11,7 @@ import {
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { fetchExams } from "../../../features/auth/slice/examSlice";
+import { fetchExams } from "../../../features/exams/api/examApi";
 
 export default function QuestionsDashboard()
 {

@@ -18,7 +18,7 @@ import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { getAllQuestions } from "../../../features/questions/api/getAllQuestions";
 import { selectQuestionsByExamId } from "../../../features/questions/selectors";
-import { fetchExams } from "../../../features/auth/slice/examSlice";
+import { fetchExams } from "../../../features/exams/api/examApi";
 
 export default function AddQuestions() {
   const dispatch = useDispatch();
