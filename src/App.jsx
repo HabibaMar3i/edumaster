@@ -26,9 +26,9 @@ function App() {
     {
       path: "/",
       element: (
-        <ProtectedRoute>
-          <MainLayout />
-        </ProtectedRoute>
+          <ProtectedRoute>
+            <MainLayout />
+          </ProtectedRoute>
       ),
       children: [
         { index: true, element: <RoleBasedRedirect /> },
@@ -38,57 +38,57 @@ function App() {
         {
           path: "admin-home",
           element: (
-            <ProtectedRoute allowedRoles={["admin", "super-admin"]}>
-              <AdminHomePage />
-            </ProtectedRoute>
+              <ProtectedRoute allowedRoles={["admin", "super-admin"]}>
+                <AdminHomePage />
+              </ProtectedRoute>
           ),
         },
         {
           path: "admin-lessons",
           element: (
-            <ProtectedRoute allowedRoles={["admin", "super-admin"]}>
-              <LessonsDashboard />
-            </ProtectedRoute>
+              <ProtectedRoute allowedRoles={["admin", "super-admin"]}>
+                <LessonsDashboard />
+              </ProtectedRoute>
           ),
         },
         {
           path: "admin-questions",
           element: (
-            <ProtectedRoute allowedRoles={["admin", "super-admin"]}>
-              <QuestionsDashboard />
-            </ProtectedRoute>
+              <ProtectedRoute allowedRoles={["admin", "super-admin"]}>
+                <QuestionsDashboard />
+              </ProtectedRoute>
           ),
         },
         {
           path: "admin-questions/add/:idExam",
           element: (
-            <ProtectedRoute allowedRoles={["admin", "super-admin"]}>
-              <AddQuestions />
-            </ProtectedRoute>
+              <ProtectedRoute allowedRoles={["admin", "super-admin"]}>
+                <AddQuestions />
+              </ProtectedRoute>
           ),
         },
         {
           path: "admin-exams",
           element: (
-            <ProtectedRoute allowedRoles={["admin", "super-admin"]}>
-              <ExamsDashboard />
-            </ProtectedRoute>
+              <ProtectedRoute allowedRoles={["admin", "super-admin"]}>
+                <ExamsDashboard />
+              </ProtectedRoute>
           ),
         },
         {
           path: "create-exam",
           element: (
-            <ProtectedRoute allowedRoles={["admin", "super-admin"]}>
-              <CreateExam />
-            </ProtectedRoute>
+              <ProtectedRoute allowedRoles={["admin", "super-admin"]}>
+                <CreateExam />
+              </ProtectedRoute>
           ),
         },
         {
           path: "edit-exam/:id",
           element: (
-            <ProtectedRoute allowedRoles={["admin", "super-admin"]}>
-              <EditExam />
-            </ProtectedRoute>
+              <ProtectedRoute allowedRoles={["admin", "super-admin","user"]}>
+                <EditExam />
+              </ProtectedRoute>
           ),
         },
         {
@@ -97,25 +97,25 @@ function App() {
             {
               index: true,
               element: (
-                <ProtectedRoute allowedRoles={["admin", "super-admin"]}>
-                  <ProfileDetail />
-                </ProtectedRoute>
+                  <ProtectedRoute allowedRoles={["admin", "super-admin","user"]}>
+                    <ProfileDetail />
+                  </ProtectedRoute>
               ),
             },
             {
               path: "editUser/:userId",
               element: (
-                <ProtectedRoute allowedRoles={["admin", "super-admin"]}>
-                  <EditProfile />
-                </ProtectedRoute>
+                  <ProtectedRoute allowedRoles={["admin", "super-admin","user"]}>
+                    <EditProfile />
+                  </ProtectedRoute>
               ),
             },
             {
               path: "resetPassword",
               element: (
-                <ProtectedRoute allowedRoles={["admin", "super-admin"]}>
-                  <ResetPassword />
-                </ProtectedRoute>
+                  <ProtectedRoute allowedRoles={["admin", "super-admin", "user"]}>
+                    <ResetPassword />
+                  </ProtectedRoute>
               ),
             },
           ],
@@ -125,26 +125,26 @@ function App() {
     {
       path: "/login",
       element: (
-        <PublicRoute>
-          <Login />
-        </PublicRoute>
+          <PublicRoute>
+            <Login />
+          </PublicRoute>
       ),
     },
     {
       path: "/register",
       element: (
-        <PublicRoute>
-          <Register />
-        </PublicRoute>
+          <PublicRoute>
+            <Register />
+          </PublicRoute>
       ),
     },
     { path: "*", element: <NotFound /> },
   ]);
   return (
-    <>
-      <RouterProvider router={routes} />
-      <ToastContainer />
-    </>
+      <>
+        <RouterProvider router={routes} />
+        <ToastContainer />
+      </>
   );
 }
 
