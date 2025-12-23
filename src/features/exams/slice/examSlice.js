@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { fetchExams, createExam, updateExam, deleteExam } from "../api/examApi";
+import { createExam, deleteExam, fetchExams, updateExam } from "../api/examApi";
 
 const examsSlice = createSlice({
     name: "exams",
