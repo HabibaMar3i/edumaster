@@ -41,6 +41,11 @@ export default function NavbarComponent() {
                             </Link>
                         </NavbarItem>
                         <NavbarItem>
+                            <Link to="/about" className="text-foreground">
+                                About Us
+                            </Link>
+                        </NavbarItem>
+                        <NavbarItem>
                             <Link to="/lessons" className="text-foreground">
                                 Lessons
                             </Link>
@@ -60,6 +65,11 @@ export default function NavbarComponent() {
                 
                 {!isAuthenticated ? (
                     <>
+                        <NavbarItem>
+                            <Link to="/about" className="text-foreground">
+                                About Us
+                            </Link>
+                        </NavbarItem>
                         <NavbarItem>
                             <Link to="/login">Login</Link>
                         </NavbarItem>
@@ -89,6 +99,11 @@ export default function NavbarComponent() {
                             </Link>
                         </NavbarMenuItem>
                         <NavbarMenuItem onClick={() => setIsMenuOpen(false)}>
+                            <Link to="/about" className="w-full" size="lg">
+                                About Us
+                            </Link>
+                        </NavbarMenuItem>
+                        <NavbarMenuItem onClick={() => setIsMenuOpen(false)}>
                             <Link to="/lessons" className="w-full" size="lg">
                                 Lessons
                             </Link>
@@ -108,6 +123,11 @@ export default function NavbarComponent() {
                 
                 {!isAuthenticated ? (
                     <>
+                        <NavbarMenuItem onClick={() => setIsMenuOpen(false)}>
+                            <Link to="/about" className="w-full" size="lg">
+                                About Us
+                            </Link>
+                        </NavbarMenuItem>
                         <NavbarMenuItem onClick={() => setIsMenuOpen(false)}>
                             <Link to="/login" className="w-full" size="lg">
                                 Login
