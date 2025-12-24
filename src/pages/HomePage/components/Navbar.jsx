@@ -1,4 +1,6 @@
-export default function     Navbar() {
+import { Link } from "react-router-dom";
+
+export default function Navbar() {
     return (
         <nav className="flex items-center justify-between px-6 md:px-16 py-6 text-white">
             {/* Logo */}
@@ -15,12 +17,12 @@ export default function     Navbar() {
 
             {/* Buttons */}
             <div className="flex gap-3">
-                <button className="px-6 py-2 rounded-full bg-white text-teal-500 text-sm">
+                <Link to={"/login"} className="px-6 py-2 rounded-full bg-white text-teal-500 text-sm">
                     Login
-                </button>
-                <button className="px-6 py-2 rounded-full bg-teal-300 text-white text-sm">
+                </Link>
+                <Link to={"/register"} className="px-6 py-2 rounded-full bg-teal-300 text-white text-sm">
                     Sign Up
-                </button>
+                </Link>
             </div>
         </nav>
     );
