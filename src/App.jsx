@@ -12,6 +12,9 @@ import ExamsDashboard from "./pages/admin/ExamsDashboard/ExamsDashboard";
 import CreateExam from "./pages/admin/ExamsDashboard/CreateExam";
 import EditExam from "./pages/admin/ExamsDashboard/EditExam";
 
+import HomePage from "./pages/HomePage/HomePage";
+
+
 import NotFound from "./pages/NotFound";
 import { ToastContainer } from "react-toastify";
 import ProtectedRoute from "./components/ProtectedRoute";
@@ -20,6 +23,10 @@ import RoleBasedRedirect from "./components/RoleBasedRedirect";
 import AddQuestions from "./pages/admin/QuestionsDashboard/AddQuestions";
 function App() {
   const routes = createBrowserRouter([
+    {
+      path: "/home",
+      element: <HomePage />,
+    },
     {
       path: "/",
       element: (

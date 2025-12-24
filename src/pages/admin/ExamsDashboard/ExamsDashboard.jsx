@@ -11,7 +11,8 @@ import {
     ModalHeader,
     ModalBody,
     ModalFooter,
-} from "@heroui/react"; import {
+} from "@heroui/react";
+import {
     fetchExams,
     deleteExam,
 } from "../../../features/exams/api/examApi";
