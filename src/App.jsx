@@ -12,6 +12,9 @@ import ExamsDashboard from "./pages/admin/ExamsDashboard/ExamsDashboard";
 import CreateExam from "./pages/admin/ExamsDashboard/CreateExam";
 import EditExam from "./pages/admin/ExamsDashboard/EditExam";
 
+import HomePage from "./pages/HomePage/HomePage";
+
+
 import NotFound from "./pages/NotFound";
 import { ToastContainer } from "react-toastify";
 import ProtectedRoute from "./components/ProtectedRoute";
@@ -24,6 +27,10 @@ import ResetPassword from "./pages/admin/profile/resetPassword.jsx";
 import About from "./pages/About";
 function App() {
   const routes = createBrowserRouter([
+    {
+      path: "/home",
+      element: <HomePage />,
+    },
     {
       path: "/",
       element: (

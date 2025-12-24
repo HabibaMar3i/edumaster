@@ -12,7 +12,11 @@ import {
   ModalBody,
   ModalFooter,
 } from "@heroui/react";
-import { deleteExam, fetchExams } from "../../../features/exams/api/examApi";
+import {
+  fetchExams,
+  deleteExam,
+} from "../../../features/exams/api/examApi";
+
 
 export default function ExamsList() {
   const [deleteId, setDeleteId] = useState(null);
@@ -102,11 +106,10 @@ export default function ExamsList() {
                   <td className="p-3">{exam.duration} min</td>
                   <td className="p-3">
                     <span
-                      className={`px-2 py-1 rounded text-xs ${
-                        exam.isPublished
+                      className={`px-2 py-1 rounded text-xs ${exam.isPublished
                           ? "bg-green-100 text-green-700"
                           : "bg-yellow-100 text-yellow-700"
-                      }`}
+                        }`}
                     >
                       {exam.isPublished ? "Published" : "Draft"}
                     </span>
