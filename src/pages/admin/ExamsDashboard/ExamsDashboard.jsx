@@ -40,22 +40,7 @@ export default function ExamsList() {
     dispatch(fetchExams(token));
   }, [dispatch, token]);
 
-  /* ================= DELETE ================= */
-  // function handleDelete(id) {
-  //     // const confirmDelete = window.confirm(
-  //     //     "Are you sure you want to delete this exam?"
-  //     // );
-  //     // if (!confirmDelete) return;
-
-  //     dispatch(deleteExam({ deleteId, token }))
-  //         .unwrap()
-  //         .then(() => {
-  //             toast.success("Exam deleted successfully 🗑️");
-  //         })
-  //         .catch((err) => {
-  //             toast.error(err || "Failed to delete exam ❌");
-  //         });
-  // }
+  
 
   if (loading) {
     return <p className="p-6">Loading exams...</p>;
