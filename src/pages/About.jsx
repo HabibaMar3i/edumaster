@@ -5,7 +5,6 @@ import { Link } from "react-router-dom";
 const About = () => {
     return (
         <div className="font-sans">
-            {/* Hero Section */}
             <section className="bg-gradient-to-r from-[#49bbbd] to-teal-500 text-white py-20 px-6 text-center relative overflow-hidden">
                 <div className="max-w-4xl mx-auto z-10 relative">
                     <Chip variant="flat" className="bg-white/20 text-white mb-4 backdrop-blur-md">
@@ -26,7 +25,6 @@ const About = () => {
                         </Link>
                     </div>
                 </div>
-                {/* Decorative background element */}
                 <div className="absolute top-0 left-0 w-full h-full opacity-10 pointer-events-none">
                     <svg className="w-full h-full" viewBox="0 0 100 100" preserveAspectRatio="none">
                         <path d="M0 100 C 20 0 50 0 100 100 Z" fill="white" />
@@ -34,7 +32,6 @@ const About = () => {
                 </div>
             </section>
 
-            {/* Statistics Grid */}
             <section className="py-16 px-6 bg-gray-50/50">
                 <div className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-8">
                     {[
@@ -52,7 +49,6 @@ const About = () => {
                 </div>
             </section>
 
-            {/* Core Values */}
             <section className="py-16 px-6">
                 <div className="max-w-6xl mx-auto">
                     <h2 className="text-3xl font-bold text-center text-gray-800 mb-12">
@@ -72,7 +68,6 @@ const About = () => {
                             </CardBody>
                         </Card>
 
-                        {/* Value 2 */}
                         <Card className="border-none shadow-md hover:-translate-y-1 transition-transform duration-300">
                             <CardBody className="p-8 flex flex-col items-center text-center">
                                 <div className="w-16 h-16 bg-teal-50 text-[#49bbbd] rounded-full flex items-center justify-center mb-6">
@@ -85,7 +80,6 @@ const About = () => {
                             </CardBody>
                         </Card>
 
-                        {/* Value 3 */}
                         <Card className="border-none shadow-md hover:-translate-y-1 transition-transform duration-300">
                             <CardBody className="p-8 flex flex-col items-center text-center">
                                 <div className="w-16 h-16 bg-teal-50 text-[#49bbbd] rounded-full flex items-center justify-center mb-6">
@@ -101,10 +95,8 @@ const About = () => {
                 </div>
             </section>
 
-            {/* "Why EduMaster?" Section */}
             <section className="py-20 px-6 bg-gradient-to-br from-gray-50 to-teal-50/30">
                 <div className="max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-                    {/* Text Content */}
                     <div className="order-2 lg:order-1">
                         <h2 className="text-3xl font-bold text-gray-800 mb-6">
                             Why Choose EduMaster?
@@ -132,7 +124,6 @@ const About = () => {
                         </Link>
                     </div>
 
-                    {/* Image Placeholder */}
                     <div className="order-1 lg:order-2">
                         <Card className="w-full h-80 border-none shadow-xl">
                             <div className="w-full h-full bg-gradient-to-tr from-[#49bbbd] to-teal-400 flex items-center justify-center relative overflow-hidden">
