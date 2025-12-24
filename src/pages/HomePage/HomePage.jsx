@@ -1,10 +1,9 @@
 import Navbar from "./Components/Navbar";
-import Hero from "./Components/Hero.jsx";
+import Hero from "./Components/Hero";
 import OurSuccess from "./components/OurSuccess";
 import FeatureCards from "./components/FeatureCards";
-import CTA from "./components/CTA";
-import WhatIs from "./components/WhatIs.jsx";
-import Footer from "./components/Footer.jsx";
+import WhatIs from "./components/WhatIs";
+import Footer from "./components/Footer";
 export default function HomePage() {
     return (
         <div className="min-h-screen bg-teal-500 ">
@@ -14,7 +13,6 @@ export default function HomePage() {
                 <OurSuccess />
                 <FeatureCards />
                 <WhatIs />
-                <CTA />
             </div>
             <Footer />
 
