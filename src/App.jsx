@@ -21,6 +21,10 @@ import ProtectedRoute from "./components/ProtectedRoute";
 import PublicRoute from "./components/PublicRoute";
 import RoleBasedRedirect from "./components/RoleBasedRedirect";
 import AddQuestions from "./pages/admin/QuestionsDashboard/AddQuestions";
+import ProfileDetail from "./pages/admin/profile/profileDetail.jsx";
+import EditProfile from "./pages/admin/profile/editProfile.jsx";
+import ResetPassword from "./pages/admin/profile/resetPassword.jsx";
+import About from "./pages/About";
 function App() {
   const routes = createBrowserRouter([
     {
@@ -90,11 +94,42 @@ function App() {
         {
           path: "edit-exam/:id",
           element: (
-            <ProtectedRoute allowedRoles={["admin", "super-admin"]}>
+            <ProtectedRoute allowedRoles={["admin", "super-admin", "user"]}>
               <EditExam />
             </ProtectedRoute>
           ),
         },
+        {
+          path: "profile",
+          children: [
+            {
+              index: true,
+              element: (
+                <ProtectedRoute allowedRoles={["admin", "super-admin", "user"]}>
+                  <ProfileDetail />
+                </ProtectedRoute>
+              ),
+            },
+            {
+              path: "editUser/:userId",
+              element: (
+                <ProtectedRoute allowedRoles={["admin", "super-admin", "user"]}>
+                  <EditProfile />
+                </ProtectedRoute>
+              ),
+            },
+            {
+              path: "resetPassword",
+              element: (
+                <ProtectedRoute allowedRoles={["admin", "super-admin", "user"]}>
+                  <ResetPassword />
+                </ProtectedRoute>
+              ),
+            },
+          ],
+        },
+        { path: "/about", element: <ProtectedRoute><About /></ProtectedRoute> },
+
       ],
     },
     {

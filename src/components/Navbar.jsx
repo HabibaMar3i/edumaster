@@ -2,6 +2,7 @@ import { Navbar, NavbarBrand, NavbarContent, NavbarItem, NavbarMenuToggle, Navba
 import { Link } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { logout } from '../features/auth/slice/authSlice';
+import { clearUser } from '../features/user/slice/userSlice';
 import { useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 
@@ -13,6 +14,7 @@ export default function NavbarComponent() {
 
     const handleLogout = () => {
         dispatch(logout());
+        dispatch(clearUser());
         navigate('/register');
     };
 
@@ -39,6 +41,11 @@ export default function NavbarComponent() {
                             </Link>
                         </NavbarItem>
                         <NavbarItem>
+                            <Link to="/about" className="text-foreground">
+                                About Us
+                            </Link>
+                        </NavbarItem>
+                        <NavbarItem>
                             <Link to="/lessons" className="text-foreground">
                                 Lessons
                             </Link>
@@ -48,11 +55,21 @@ export default function NavbarComponent() {
                                 Exams
                             </Link>
                         </NavbarItem>
+                        <NavbarItem>
+                            <Link to="/profile" className="text-foreground">
+                                Profile
+                            </Link>
+                        </NavbarItem>
                     </>
                 )}
                 
                 {!isAuthenticated ? (
                     <>
+                        <NavbarItem>
+                            <Link to="/about" className="text-foreground">
+                                About Us
+                            </Link>
+                        </NavbarItem>
                         <NavbarItem>
                             <Link to="/login">Login</Link>
                         </NavbarItem>
@@ -82,6 +99,11 @@ export default function NavbarComponent() {
                             </Link>
                         </NavbarMenuItem>
                         <NavbarMenuItem onClick={() => setIsMenuOpen(false)}>
+                            <Link to="/about" className="w-full" size="lg">
+                                About Us
+                            </Link>
+                        </NavbarMenuItem>
+                        <NavbarMenuItem onClick={() => setIsMenuOpen(false)}>
                             <Link to="/lessons" className="w-full" size="lg">
                                 Lessons
                             </Link>
@@ -91,11 +113,21 @@ export default function NavbarComponent() {
                                 Exams
                             </Link>
                         </NavbarMenuItem>
+                        <NavbarMenuItem onClick={() => setIsMenuOpen(false)}>
+                            <Link to="/profile" className="w-full" size="lg">
+                                Profile
+                            </Link>
+                        </NavbarMenuItem>
                     </>
                 )}
                 
                 {!isAuthenticated ? (
                     <>
+                        <NavbarMenuItem onClick={() => setIsMenuOpen(false)}>
+                            <Link to="/about" className="w-full" size="lg">
+                                About Us
+                            </Link>
+                        </NavbarMenuItem>
                         <NavbarMenuItem onClick={() => setIsMenuOpen(false)}>
                             <Link to="/login" className="w-full" size="lg">
                                 Login

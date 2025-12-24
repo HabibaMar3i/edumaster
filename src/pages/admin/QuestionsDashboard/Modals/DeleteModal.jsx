@@ -7,7 +7,29 @@ import {
   ModalFooter,
   ModalHeader,
 } from "@heroui/react";
-export default function DeleteModal({ isOpen, onOpenChange }) {
+import axios from "axios";
+import { useDispatch, useSelector } from "react-redux";
+import { getAllQuestions } from "../../../../features/questions/api/getAllQuestions";
+import { toast } from "react-toastify";
+export default function DeleteModal({ isOpen, onOpenChange, question }) {
+  const token = useSelector((state) => state.auth.token);
+  const dispatch = useDispatch();
+  const handleDeleteQ = async () => {
+    //
+    try {
+      await axios.delete(
+        `https://edu-master-psi.vercel.app/question/${question._id}`,
+        {
+          headers: { token },
+        }
+      );
+      toast.success("Delete Question");
+      dispatch(getAllQuestions());
+    } catch (error) {
+      toast.error("Error Delete Question");
+      console.log(error);
+    }
+  };
   return (
     <Modal isOpen={isOpen} onOpenChange={onOpenChange}>
       <ModalContent>
@@ -23,7 +45,13 @@ export default function DeleteModal({ isOpen, onOpenChange }) {
               <Button color="danger" variant="light" onPress={onClose}>
                 Close
               </Button>
-              <Button color="primary" onPress={onClose}>
+              <Button
+                color="primary"
+                onPress={() => {
+                  handleDeleteQ();
+                  setTimeout(() => onClose(), 500);
+                }}
+              >
                 confirm
               </Button>
             </ModalFooter>
