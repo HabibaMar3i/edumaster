@@ -9,8 +9,7 @@ import AdminHomePage from "./pages/admin/AdminHomePage";
 import LessonsDashboard from "./pages/admin/LessonsDashboard/LessonsDashboard";
 import QuestionsDashboard from "./pages/admin/QuestionsDashboard/QuestionsDashboard";
 import ExamsDashboard from "./pages/admin/ExamsDashboard/ExamsDashboard";
-import CreateExam from "./pages/admin/ExamsDashboard/CreateExam";
-import EditExam from "./pages/admin/ExamsDashboard/EditExam";
+
 
 import HomePage from "./pages/HomePage/HomePage";
 
@@ -83,22 +82,8 @@ function App() {
             </ProtectedRoute>
           ),
         },
-        {
-          path: "create-exam",
-          element: (
-            <ProtectedRoute allowedRoles={["admin", "super-admin"]}>
-              <CreateExam />
-            </ProtectedRoute>
-          ),
-        },
-        {
-          path: "edit-exam/:id",
-          element: (
-            <ProtectedRoute allowedRoles={["admin", "super-admin", "user"]}>
-              <EditExam />
-            </ProtectedRoute>
-          ),
-        },
+
+
         {
           path: "profile",
           children: [
