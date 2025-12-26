@@ -42,6 +42,7 @@ function App() {
         { path: "lessons", element: <Lessons /> },
         { path: "lessons/:id", element: <Lessons /> },
         { path: "exams", element: <Exams /> },
+        { path: "exams/:examId", element: <Exams /> },
         {
           path: "admin-home",
           element: (
