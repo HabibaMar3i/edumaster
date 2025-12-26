@@ -5,7 +5,6 @@ import Lessons from "./pages/Lessons";
 import Exams from "./pages/Exams";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
-import AdminHomePage from "./pages/admin/AdminHomePage";
 import LessonsDashboard from "./pages/admin/LessonsDashboard/LessonsDashboard";
 import QuestionsDashboard from "./pages/admin/QuestionsDashboard/QuestionsDashboard";
 import ExamsDashboard from "./pages/admin/ExamsDashboard/ExamsDashboard";
@@ -24,6 +23,7 @@ import ProfileDetail from "./pages/admin/profile/profileDetail.jsx";
 import EditProfile from "./pages/admin/profile/editProfile.jsx";
 import ResetPassword from "./pages/admin/profile/resetPassword.jsx";
 import About from "./pages/About";
+import { AdminHomePage } from "./pages/admin/AdminHomePage.jsx";
 function App() {
   const routes = createBrowserRouter([
     {
@@ -46,7 +46,7 @@ function App() {
           path: "admin-home",
           element: (
             <ProtectedRoute allowedRoles={["admin", "super-admin"]}>
-              <AdminHomePage />
+              <AdminHomePage/>
             </ProtectedRoute>
           ),
         },
