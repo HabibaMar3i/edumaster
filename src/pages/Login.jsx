@@ -17,16 +17,6 @@ export default function Login() {
     const { loading, message, success, role } = useSelector(state => state.auth)
 
     useEffect(() => {
-        if (message) {
-            if (message.toLowerCase().includes('successfully')) {
-                toast.success(message)
-            } else {
-                toast.error(message)
-            }
-        }
-    }, [message])
-
-    useEffect(() => {
         if (success && role === 'user') {
             navigate('/')
         }
@@ -47,9 +37,18 @@ export default function Login() {
         
         try {
             await schema.validate(form, { abortEarly: false })
-            dispatch(login(form))
+            const result = await dispatch(login(form)).unwrap()
+            if (result.success) {
+                toast.success(result.message)
+            } else {
+                toast.error(result.message)
+            }
         } catch (error) {
-            toast.error('Please fill all required fields correctly')
+            if (error.message) {
+                toast.error(error.message)
+            } else {
+                toast.error('Please fill all required fields correctly')
+            }
         }
     }
 

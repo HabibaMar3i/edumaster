@@ -20,30 +20,6 @@ export default function Register() {
     const navigate = useNavigate()
     const { loading, message, success } = useSelector(state => state.auth)
 
-    useEffect(() => {
-        if (message) {
-            if (message.toLowerCase().includes('successfully')) {
-                toast.success(message)
-            } else {
-                toast.error(message)
-            }
-            
-            if (message.toLowerCase().includes('already exists')) {
-                setTimeout(() => {
-                    navigate('/login')
-                }, 4000)
-            }
-        }
-    }, [message, navigate])
-
-    useEffect(() => {
-        if (success) {
-            setTimeout(() => {
-                navigate('/login')
-            }, 4000)
-        }
-    }, [success, navigate])
-
     const [form, setForm] = useState({
         fullName: '',
         email: '',
@@ -74,9 +50,22 @@ export default function Register() {
                 return
             }
             
-            dispatch(register(form))
+            const result = await dispatch(register(form)).unwrap()
+            if (result.message.toLowerCase().includes('successfully')) {
+                toast.success(result.message)
+                setTimeout(() => navigate('/login'), 2000)
+            } else {
+                toast.error(result.message)
+                if (result.message.toLowerCase().includes('already exists')) {
+                    setTimeout(() => navigate('/login'), 2000)
+                }
+            }
         } catch (error) {
-            toast.error('Please fill all required fields correctly')
+            if (error.message) {
+                toast.error(error.message)
+            } else {
+                toast.error('Please fill all required fields correctly')
+            }
         }
     }
 

@@ -46,7 +46,7 @@ export default function DeleteModal({ isOpen, onOpenChange, question }) {
                 Close
               </Button>
               <Button
-                color="primary"
+                className="bg-teal-500 text-white hover:bg-teal-600"
                 onPress={() => {
                   handleDeleteQ();
                   setTimeout(() => onClose(), 500);
