@@ -57,29 +57,6 @@ export default function LessonModal({ isOpen, onOpenChange, lesson, classLevels 
         }
     }, [lesson]);
 
-    // Show toast messages for success/error
-    useEffect(() => {
-        if (message) {
-            if (success) {
-                toast.success(message, {
-                    autoClose: 3000,
-                    closeOnClick: true,
-                    pauseOnHover: false,
-                });
-                // Clear message after showing
-                setTimeout(() => {
-                    dispatch(clearMessage());
-                }, 3000);
-            } else {
-                toast.error(message, {
-                    autoClose: 3000,
-                    closeOnClick: true,
-                    pauseOnHover: false,
-                });
-            }
-        }
-    }, [message, success, dispatch]);
-
     const handleSubmit = async (onClose) => {
         try {
             // Prepare data for API

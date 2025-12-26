@@ -67,6 +67,17 @@ export default function LessonsDashboard() {
         dispatch(fetchLessons(classFilter));
     }, [dispatch, classFilter]);
 
+    // Handle toast messages
+    useEffect(() => {
+        if (message) {
+            if (success) {
+                toast.success(message);
+            } else {
+                toast.error(message);
+            }
+        }
+    }, [message, success]);
+
   
 
     // Handle delete lesson
