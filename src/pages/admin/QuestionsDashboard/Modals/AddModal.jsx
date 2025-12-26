@@ -27,6 +27,7 @@ export default function AddModal({ isOpen, onOpenChange }) {
   const [typeQuestion, setTypeQuestion] = useState("");
   const [questionText, setQuestionText] = useState("");
   const [points, setPoints] = useState(0);
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   // Multiple Choice States
   const [answerA, setAnswerA] = useState("");
@@ -49,6 +50,9 @@ export default function AddModal({ isOpen, onOpenChange }) {
 
   // Submit
   const handleSubmit = async () => {
+    if (isSubmitting) return;
+    setIsSubmitting(true);
+    
     let questionData = {
       text: questionText,
       type: typeQuestion,
@@ -71,6 +75,7 @@ export default function AddModal({ isOpen, onOpenChange }) {
         break;
 
       default:
+        setIsSubmitting(false);
         return;
     }
 
@@ -83,6 +88,8 @@ export default function AddModal({ isOpen, onOpenChange }) {
     } catch (error) {
       toast.error("Failed to add question");
       console.log(error);
+    } finally {
+      setIsSubmitting(false);
     }
   };
 
@@ -98,6 +105,7 @@ export default function AddModal({ isOpen, onOpenChange }) {
     setCorrectMultipleChoice("");
     setTrueFalseAnswer("");
     setShortAnswer("");
+    setIsSubmitting(false);
   };
 
   const isFormValid = () => {
@@ -211,6 +219,8 @@ export default function AddModal({ isOpen, onOpenChange }) {
                     aria-label="Correct Answer"
                     value={correctMultipleChoice}
                     onValueChange={setCorrectMultipleChoice}
+                    color="success"
+                    className="[&_[data-selected=true]]:text-teal-500 [&_[data-selected=true]_[data-slot=control]]:bg-teal-500 [&_[data-selected=true]_[data-slot=control]]:border-teal-500"
                   >
                     <Radio value={answerA} isDisabled={!answerA}>
                       A
@@ -235,6 +245,8 @@ export default function AddModal({ isOpen, onOpenChange }) {
                   aria-label="Select Answer"
                   value={trueFalseAnswer}
                   onValueChange={setTrueFalseAnswer}
+                  color="success"
+                  className="[&_[data-selected=true]]:text-teal-500 [&_[data-selected=true]_[data-slot=control]]:bg-teal-500 [&_[data-selected=true]_[data-slot=control]]:border-teal-500"
                 >
                   <Radio value="True">True</Radio>
                   <Radio value="False">False</Radio>
@@ -283,11 +295,12 @@ export default function AddModal({ isOpen, onOpenChange }) {
                 Close
               </Button>
               <Button
-                color="primary"
+                className="bg-teal-500 text-white hover:bg-teal-600"
                 onPress={handleSubmit}
-                isDisabled={!isFormValid()}
+                isDisabled={!isFormValid() || isSubmitting}
+                isLoading={isSubmitting}
               >
-                Confirm
+                {isSubmitting ? "Adding..." : "Confirm"}
               </Button>
             </ModalFooter>
           </>
