@@ -1,7 +1,8 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Button, useDisclosure } from "@heroui/react";
+import { Button, useDisclosure, Card, CardBody, Chip } from "@heroui/react";
 import { toast } from "react-toastify";
+import { Plus } from "lucide-react";
 
 import FormModal from "../../../components/Modal";
 
@@ -48,27 +49,38 @@ export default function ExamsList() {
 
   return (
     <>
-      <div className="p-6 bg-slate-100 min-h-screen">
-        <div className="bg-white rounded-xl shadow p-6">
-          <div className="flex justify-between items-center mb-4">
-            <h2 className="text-xl font-bold">Exams</h2>
+      <div className="min-h-screen bg-gradient-to-br from-gray-50 to-blue-50/30 p-4 lg:p-8">
+        {/* Header Section */}
+        <div className="mb-8">
+          <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4 mb-6">
+            <div>
+              <h1 className="text-2xl lg:text-3xl font-bold text-gray-800 mb-2">
+                Exams Management
+              </h1>
+              <p className="text-gray-600">
+                Create, edit, and manage your educational exams
+              </p>
+            </div>
 
             <Button
-              className="px-4 py-2 bg-[#49bbbd] text-white rounded-lg text-md"
+              className="bg-gradient-to-r from-[#49bbbd] to-teal-500 text-white font-medium px-6 py-3 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300"
               onPress={() => {
                 setSelectedExam(null);
                 onOpen();
               }}
+              startContent={<Plus className="w-5 h-5" />}
             >
-              + Create Exam
+              Create New Exam
             </Button>
-
-            <FormModal
-              isOpen={isOpen}
-              onOpenChange={onOpenChange}
-              exam={selectedExam}
-            />
           </div>
+        </div>
+
+        <div className="bg-white rounded-xl shadow p-6">
+          <FormModal
+            isOpen={isOpen}
+            onOpenChange={onOpenChange}
+            exam={selectedExam}
+          />
 
           {error && <p className="text-red-600 text-sm mb-3">{error}</p>}
 

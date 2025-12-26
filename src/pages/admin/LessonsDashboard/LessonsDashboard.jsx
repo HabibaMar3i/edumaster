@@ -69,7 +69,7 @@ export default function LessonsDashboard() {
 
     // Handle toast messages
     useEffect(() => {
-        if (message) {
+        if (message && message !== "Lessons fetched successfully") {
             if (success) {
                 toast.success(message);
             } else {

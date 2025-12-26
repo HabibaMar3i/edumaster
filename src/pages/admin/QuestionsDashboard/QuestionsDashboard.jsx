@@ -36,8 +36,21 @@ export default function QuestionsDashboard()
 
 
   return (
-    <div className="p-10">
-      <h1 className="text-[12px] my-5">Questions Dashboard </h1>
+    <div className="min-h-screen bg-gradient-to-br from-gray-50 to-blue-50/30 p-4 lg:p-8">
+      {/* Header Section */}
+      <div className="mb-8">
+        <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4 mb-6">
+          <div>
+            <h1 className="text-2xl lg:text-3xl font-bold text-gray-800 mb-2">
+              Questions Management
+            </h1>
+            <p className="text-gray-600">
+              Manage questions for your exams and assessments
+            </p>
+          </div>
+        </div>
+      </div>
+
       <div className="grid lg:grid-cols-4 md:grid-cols-2 sm:grid-cols-1 gap-3">
         {exams.map((ex) => {
           return (
