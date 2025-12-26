@@ -1,4 +1,4 @@
-import Hero from "./Components/Hero";
+import Hero from "./components/Hero";
 import OurSuccess from "./components/OurSuccess";
 import FeatureCards from "./components/FeatureCards";
 import WhatIs from "./components/WhatIs";
