@@ -11,6 +11,11 @@ const lessonSlice = createSlice({
   initialState: {
     loading: false,
     lessons: [],
+    pagination: {
+      total: 0,
+      page: 1,
+      totalPages: 1,
+    },
     message: null,
     success: false,
     classFilter: "Grade 1 Secondary",
@@ -46,6 +51,11 @@ const lessonSlice = createSlice({
         state.success = action.payload.success;
         if (action.payload.success) {
           state.lessons = action.payload.data || [];
+          state.pagination = action.payload.pagination || {
+            total: state.lessons.length,
+            page: 1,
+            totalPages: 1,
+          };
         }
       })
       .addCase(fetchLessons.rejected, (state, action) => {
@@ -118,7 +128,7 @@ const lessonSlice = createSlice({
       })
       .addCase(deleteLesson.rejected, (state, action) => {
         state.loading = false;
-        state.message = "Failed to delete lesson";
+        state.message = action.payload || "Failed to delete lesson";
         state.success = false;
       });
   },
