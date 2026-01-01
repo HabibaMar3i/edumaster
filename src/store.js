@@ -4,8 +4,8 @@ import examsReducer from "./features/exams/slice/examSlice.js";
 import questionsReducer from "./features/questions/slice/getAllQuestionSlice";
 import lessonReducer from "./features/Lessons/slice/lessonSlice";
 import userReducer from "./features/user/slice/userSlice.js";
-import coursesReducer from "./features/userCourses/userCoursesSlice";
-
+import studentExamReducer from "./features/studentExam/slice/studentExamSlice.js";
+import userCoursesReducer from "./features/userCourses/userCoursesSlice.js";
 
 export const store = configureStore({
     reducer: {
@@ -14,6 +14,7 @@ export const store = configureStore({
         questions: questionsReducer,
         lessons: lessonReducer,
         user: userReducer,
-        courses: coursesReducer,
+        studentExam: studentExamReducer,
+        courses: userCoursesReducer,
     },
 });

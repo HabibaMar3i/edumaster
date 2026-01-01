@@ -63,18 +63,23 @@ export const updateLesson = createAsyncThunk(
 // Delete lesson
 export const deleteLesson = createAsyncThunk(
   "lessons/deleteLesson",
-  async (id) => {
-    const token = getToken();
-    const res = await axios.delete(
-      `https://edu-master-psi.vercel.app/lesson/${id}`,
-      {
-        headers: {
-          token,
-          "Content-Type": "application/json",
-        },
-      }
-    );
-    return { id, ...res.data };
+  async (id, { rejectWithValue }) => {
+    try {
+      const token = getToken();
+      const res = await axios.delete(
+        `https://edu-master-psi.vercel.app/lesson/${id}`,
+        {
+          headers: {
+            token,
+            "Content-Type": "application/json",
+          },
+        }
+      );
+      // If the response is empty, return success: true and the id
+      return { id, success: true, message: res.data?.message || "Lesson deleted successfully" };
+    } catch (error) {
+      return rejectWithValue(error.response?.data?.message || error.message);
+    }
   }
 );
 
